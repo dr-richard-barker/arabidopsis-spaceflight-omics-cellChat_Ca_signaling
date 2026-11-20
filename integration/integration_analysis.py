@@ -38,9 +38,9 @@ ax_a = fig.add_subplot(gs[0, 0])
 score_img_path = f'{FIGDIR}/ggplantmap_composite5_lasso_panel_score.png'
 if os.path.exists(score_img_path):
     img = mpimg.imread(score_img_path)
-    # The composite has both leaf and root; crop to left half for leaf
+    # Crop top annotation banner (to avoid clipped R title) and take left half (leaf)
     h, w = img.shape[:2]
-    ax_a.imshow(img[:, :w//2, :])
+    ax_a.imshow(img[int(h * 0.08):, :w//2, :])
 ax_a.set_title('a) LASSO panel weighted score (leaf)', fontweight='bold', loc='left', fontsize=10)
 ax_a.axis('off')
 
@@ -50,7 +50,7 @@ ca2_img_path = f'{FIGDIR}/ggplantmap_composite4_ca2_signaling.png'
 if os.path.exists(ca2_img_path):
     img = mpimg.imread(ca2_img_path)
     h, w = img.shape[:2]
-    ax_b.imshow(img[:, :w//2, :])
+    ax_b.imshow(img[int(h * 0.08):, :w//2, :])
 ax_b.set_title('b) Ca2+ signaling strength (leaf)', fontweight='bold', loc='left', fontsize=10)
 ax_b.axis('off')
 
@@ -59,22 +59,37 @@ ax_c = fig.add_subplot(gs[1, :])
 ax_c.axis('off')
 
 # Build table data
+alias_short = {
+    'AT4G10250': 'ATHSP22.0',
+    'AT3G07365': 'NAT (lncRNA)',
+    'AT2G14247': 'Chloroplast protein',
+    'AT4G01390': 'TRAF-like / MATH',
+}
+func_short_map = {
+    'AT4G10250': 'HSP20-like small heat shock chaperone (22.0 kDa)',
+    'AT3G07365': 'Natural antisense transcript (non-coding RNA)',
+    'AT2G14247': 'Chloroplast-localized expressed protein (78 aa)',
+    'AT4G01390': 'Meprin and TRAF homology (MATH) domain protein',
+}
 table_data = []
 for _, row in gene_ann.iterrows():
-    direction = 'Flight (+)' if '+' in row['direction'] else 'Ground (-)'
-    func_short = row['protein_name'][:45] + '...' if len(row['protein_name']) > 45 else row['protein_name']
+    gid = row['gene_id']
+    coef_val = float(row['coefficient'])
+    direction = 'Flight (+)' if coef_val > 0 else 'Ground (-)'
+    alias_val = alias_short.get(gid, str(row['alias']))
+    func_val = func_short_map.get(gid, str(row['protein_name']))
     table_data.append([
-        row['gene_id'],
-        row['alias'][:15],
-        row['coefficient'],
+        gid,
+        alias_val,
+        f"{coef_val:+.3f}",
         direction,
-        func_short
+        func_val
     ])
 
-col_labels = ['Gene ID', 'Alias', 'Coefficient', 'Direction', 'Protein / Function']
+col_labels = ['Gene ID', 'Gene Name / Alias', 'Coefficient', 'Direction', 'Protein / Function']
 table = ax_c.table(cellText=table_data, colLabels=col_labels,
                    loc='center', cellLoc='left',
-                   colWidths=[0.12, 0.15, 0.1, 0.12, 0.51])
+                   colWidths=[0.11, 0.20, 0.10, 0.11, 0.48])
 table.auto_set_font_size(False)
 table.set_fontsize(9)
 table.scale(1, 1.8)

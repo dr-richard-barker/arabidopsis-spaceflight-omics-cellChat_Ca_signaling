@@ -1,25 +1,25 @@
 # npj Microgravity Manuscript Package
 
 ## Title
-LASSO biomarker panel and single-cell atlas integration reveals Ca2+-dominated cell-cell communication in Arabidopsis spaceflight response
+LASSO biomarker panel and single-cell atlas integration reveal Ca2+-dominated cell-cell communication in the Arabidopsis spaceflight response
 
 ## Contents
 
 ### Main Manuscript
-- `manuscript.docx` — text-only manuscript, figures referenced separately (~6,900 words)
-- `manuscript.pdf` — PDF of the text-only manuscript (23 pp)
-- `manuscript_with_figures.docx` — same expanded text with all 8 figures embedded inline (~6,900 words)
-- `manuscript_with_figures_ACTIVE_DRAFT.docx` — **active working draft** (~6,900 words); latest in-progress revision (identical body text to `manuscript_with_figures.docx`)
+- `manuscript.docx` — text-only manuscript, figures referenced separately (~5,740 words, includes Table 1)
+- `manuscript.pdf` — PDF of the text-only manuscript (20 pp)
+- `manuscript_with_figures.docx` — same polished text with all 8 figures embedded inline and Table 1 (~5,740 words)
+- `manuscript_with_figures_ACTIVE_DRAFT.docx` — **active working draft** (~5,740 words; identical body text and embedded figures to `manuscript_with_figures.docx`)
 
-> All four files now share the same expanded ~6,900-word text; `manuscript.docx`/`.pdf` are the reference submission versions (figures separate), the `*_with_figures*` docs embed figures for review convenience.
+> All three Word files share the same polished ~5,740-word text and Table 1; `manuscript.docx`/`.pdf` are the reference submission versions (figures separate), while the `*_with_figures*` docs embed figures inline for review convenience.
 
 ### Main Figures (`figures/`)
 8 main figures in PNG (300 dpi) and SVG (editable vector) formats:
 
 1. **Figure1_LASSO_panel** — LASSO biomarker panel: (a) ROC/AUC per study, (b) feature stability, (c) coefficient forest plot
 2. **Figure2_scPlantLLM_clustering** — UMAP: (a) atlas cell types, (b) Leiden clusters, (c) zero-shot predictions
-3. **Figure3_CCC_communication** — Cell-cell communication: (a) heatmap, (b) top signaling pathways, (c) top LR pairs
-4. **Figure4_ggPlantmap_LASSO_genes** — Spatial expression of 4 LASSO genes on (a) leaf and (b) root tip cross-sections
+3. **Figure3_CCC_communication** — Cell-cell communication (2×2 montage): (a) heatmap, (b) top signaling pathways, (c) top 50 LR pairs (`General [RLK]`, `Ca2+`, and other signaling pathways)
+4. **Figure4_ggPlantmap_LASSO_genes** — Spatial expression of 4 LASSO genes (TAIR IDs + gene names) on (a) leaf and (b) root tip cross-sections
 5. **Figure5_Ca2_pathway** — Ca2+ signaling: (a) data-driven ggpathway network, (b) conceptual schematic
 6. **Figure6_integration** — Integration: (a) LASSO panel score on leaf, (b) Ca2+ signaling on leaf, (c) gene function table
 7. **Figure7_ca2_k_circuit_composite** — Ca2+/K+ crosstalk signaling circuit

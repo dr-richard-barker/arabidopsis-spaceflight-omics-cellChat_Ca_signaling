@@ -50,8 +50,8 @@ arabidopsis-spaceflight-omics/
 - **scPlantLLM**: Zero-shot loose accuracy = 28.1%, highlighting domain shift challenges for plant foundation models
 - **Cell-cell communication**: Ca2+ signaling dominates (strength = 249.5, 4.6× next pathway)
 - **GO enrichment**: Flight-up genes enriched for heat/ER-proteostasis; ground-up genes enriched for flavonoid metabolism
-- **Ca2+/K+ crosstalk circuit**: CBL9-CIPK23-AKT1 cascade connects Ca2+ sensing to K+ uptake; guard cells are the dominant Ca2+ source (10.2-fold over K+); strongest guard cell co-expression: CDPK4-ANNAT1 (r=0.56), CBL9-AKT1 (r=0.34)
-- **Sankey diagram**: Two-panel visualization tracing signal flow at cell-type and molecular cascade levels
+- **Ca2+/K+ crosstalk circuit**: CBL1-CIPK23-AKT1 cascade connects Ca2+ sensing to K+ uptake (27 nodes, 56 edges); guard cells are the dominant Ca2+ source (10.2-fold over K+) with highest CIPK23 expression (0.333), and epidermal cells have highest AKT1 expression (0.367); exploratory guard-cell co-expression includes CBL1-ANNAT1 (r=0.90), CBL1-CDPK4 (r=0.63), and CDPK4-ANNAT1 (r=0.56)
+- **Figure 8**: Two-panel composite showing leaf cross-sections of CIPK23 and AKT1 expression alongside a molecular-cascade Sankey diagram
 - **Spatial mapping**: ggPlantmap montage showing circuit gene expression across seedling, root tip, and leaf anatomy
 
 ## Data Sources

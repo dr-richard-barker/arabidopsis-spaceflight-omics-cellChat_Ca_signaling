@@ -176,18 +176,22 @@ fig.tight_layout()
 save_fig(fig, 'Figure2_scPlantLLM_clustering')
 
 # ============================================================
-# FIGURE 3: Cell-Cell Communication — FIXED panel C
+# FIGURE 3: Cell-Cell Communication — Rearranged montage + Top 50 LR pairs
 # ============================================================
-print('=== Figure 3: Cell-Cell Communication (panel C FIXED) ===')
+print('=== Figure 3: Cell-Cell Communication (2x2 GridSpec + Top 50 LR pairs) ===')
 comm = pd.read_csv(RESULTS + '/tables/ccc_communication_strength.csv', index_col=0)
 signal_strength = pd.read_csv(RESULTS + '/tables/ccc_per_signal_strength.csv')
 lr_pairs = pd.read_csv(RESULTS + '/tables/ccc_lr_pairs_with_strength.csv')
 lr_db = pd.read_csv(RESULTS + '/tables/ccc_lr_pairs.csv')
 
-fig, axes = plt.subplots(1, 3, figsize=(16, 5))
+TOP_N_LR = 50
 
-# Panel A: Communication heatmap
-ax = axes[0]
+fig = plt.figure(figsize=(15.5, 11))
+gs = GridSpec(2, 2, figure=fig, width_ratios=[1.0, 1.35], height_ratios=[1.05, 1.0],
+              wspace=0.38, hspace=0.32)
+
+# Panel A (top-left): Communication heatmap
+ax = fig.add_subplot(gs[0, 0])
 im = ax.imshow(comm.values, cmap='YlOrRd', aspect='auto')
 ax.set_xticks(range(len(comm.columns)))
 ax.set_xticklabels(comm.columns, rotation=45, ha='right')
@@ -195,14 +199,14 @@ ax.set_yticks(range(len(comm.index)))
 ax.set_yticklabels(comm.index)
 ax.set_xlabel('Target cell type'); ax.set_ylabel('Source cell type')
 ax.set_title('a) Communication strength heatmap', fontweight='bold', loc='left')
-plt.colorbar(im, ax=ax, label='Communication strength', shrink=0.8)
+plt.colorbar(im, ax=ax, label='Communication strength', shrink=0.85)
 for i in range(len(comm.index)):
     for j in range(len(comm.columns)):
         ax.text(j, i, f'{comm.values[i,j]:.0f}', ha='center', va='center',
-               fontsize=7, color='black' if comm.values[i,j] < 100 else 'white')
+               fontsize=8, color='black' if comm.values[i,j] < 87 else 'white')
 
-# Panel B: Top signaling pathways
-ax = axes[1]
+# Panel B (bottom-left): Top signaling pathways
+ax = fig.add_subplot(gs[1, 0])
 signal_totals = signal_strength[signal_strength['Signal'] != ''].groupby('Signal')['Prob'].sum().sort_values(ascending=False).head(10)
 colors_sig = plt.cm.YlOrRd(np.linspace(0.3, 0.9, len(signal_totals)))
 ax.barh(range(len(signal_totals)), signal_totals.values, color=colors_sig)
@@ -215,34 +219,41 @@ ca2_idx = list(signal_totals.index).index('Ca2+') if 'Ca2+' in signal_totals.ind
 if ca2_idx >= 0:
     ax.barh(ca2_idx, signal_totals.values[ca2_idx], color='#D55E00', edgecolor='black', linewidth=1.5)
 
-# Panel C: Top LR pairs — FIXED
-# Merge with LR pairs database to get Signal labels
+# Panel C (right column spanning both rows): Top 50 LR pairs
 lr_merged = lr_pairs.merge(lr_db[['Interaction_name', 'Signal']], on='Interaction_name',
                            how='left', suffixes=('', '_db'))
 lr_merged['Signal_final'] = lr_merged['Signal'].fillna(lr_merged['Signal_db']).fillna('General')
-# Sort by total_comm (the correct column name) and take top 10
 lr_merged = lr_merged.sort_values('total_comm', ascending=False)
-top_lr = lr_merged.head(10).copy()
+top_lr = lr_merged.head(TOP_N_LR).copy()
 
-# Color by signal pathway
 signal_color_map = {'Ca2+': '#D55E00', 'General': '#999999'}
 colors_lr = [signal_color_map.get(s, '#0072B2') for s in top_lr['Signal_final']]
+y_labels = [
+    f"{name} [{sig}]" if sig != 'General' else name
+    for name, sig in zip(top_lr['Interaction_name'], top_lr['Signal_final'])
+]
 
-ax = axes[2]
-ax.barh(range(len(top_lr)), top_lr['total_comm'].values, color=colors_lr, alpha=0.8)
+ax = fig.add_subplot(gs[:, 1])
+ax.barh(range(len(top_lr)), top_lr['total_comm'].values, color=colors_lr, alpha=0.85, height=0.75)
 ax.set_yticks(range(len(top_lr)))
-ax.set_yticklabels(top_lr['Interaction_name'].values, fontsize=7)
+ax.set_yticklabels(y_labels, fontsize=7.5)
+for tick_label, sig in zip(ax.get_yticklabels(), top_lr['Signal_final']):
+    if sig == 'Ca2+':
+        tick_label.set_color('#A04000')
+        tick_label.set_fontweight('bold')
+    elif sig != 'General':
+        tick_label.set_color('#004E7C')
+        tick_label.set_fontweight('bold')
+ax.set_ylim(-0.7, len(top_lr) - 0.3)
 ax.set_xlabel('Total communication strength')
-ax.set_title('c) Top 10 ligand-receptor pairs', fontweight='bold', loc='left')
+ax.set_title(f'c) Top {TOP_N_LR} ligand-receptor pairs', fontweight='bold', loc='left')
 ax.invert_yaxis()
-# Legend for signal categories
-legend_elements_lr = [Patch(facecolor='#D55E00', alpha=0.8, label='Ca2+'),
-                      Patch(facecolor='#999999', alpha=0.8, label='General (RLK)'),
-                      Patch(facecolor='#0072B2', alpha=0.8, label='Other signals')]
-ax.legend(handles=legend_elements_lr, loc='lower right', fontsize=6)
+legend_elements_lr = [Patch(facecolor='#D55E00', alpha=0.85, label='Ca2+'),
+                      Patch(facecolor='#999999', alpha=0.85, label='General (RLK)'),
+                      Patch(facecolor='#0072B2', alpha=0.85, label='Other signals')]
+ax.legend(handles=legend_elements_lr, loc='lower right', fontsize=8, frameon=True)
 
-fig.suptitle('PlantCellChat Cell-Cell Communication Analysis', fontsize=13, fontweight='bold', y=1.02)
-fig.tight_layout()
+fig.suptitle('PlantCellChat Cell-Cell Communication Analysis', fontsize=14, fontweight='bold', y=0.98)
 save_fig(fig, 'Figure3_CCC_communication')
 
 # Verify panel C has data

@@ -10,7 +10,7 @@ Characterizes intercellular signaling using PlantCellChat, visualizes expression
 | `05_ca2_pathway.R` | Ca2+ pathway network (stress-majorization layout) |
 | `06_gene_functions.py` | Gene function annotations for top 4 LASSO genes |
 | `07_go_enrichment.R` | GO/KEGG enrichment via g:Profiler (custom background, BH-FDR) |
-| `08_ca2_k_pathway_network.R` | Expanded Ca2+/K+ pathway network (27 nodes, 67 edges) with ggpathway |
+| `08_ca2_k_pathway_network.R` | Expanded Ca2+/K+ pathway network (27 nodes, 56 edges) with ggpathway |
 | `09_ca2_k_coexpression.py` | Per-cell-type co-expression matrices for 25 Ca2+/K+ genes |
 | `10_organ_marker_analysis.py` | Tissue-specific marker diagnostic for organ inference |
 | `11_ca2_k_ccc_circuit.py` | Ca2+ and K+ cell-to-cell communication circuit |
@@ -20,8 +20,8 @@ Characterizes intercellular signaling using PlantCellChat, visualizes expression
 | `15_sankey_ca2_k_cascade.py` | Two-panel Sankey (cell-type flow + molecular cascade) |
 | `16_ggplantmap_montage.py` | Supplementary ggPlantmap montage (3-panel stack) |
 | `17_reassemble_figure5.py` | Figure 5 reassembly (refined 20-node network) |
-| `18_ggkegg_figure8a.R` | **Figure 8 panel a**: CBL9-CIPK23-AKT1 cascade on KEGG ath04075 with guard cell expression overlay (ggkegg) |
-| `19_combine_figure8.py` | Combine ggKEGG panel a + molecular cascade Sankey panel b into Figure 8 |
+| `22_make_sankey_panel_b.py` | **Figure 8 panel b**: CBL1-CIPK23-AKT1 molecular cascade Sankey |
+| `23_composite_figure8_new.py` | Combine ggPlantmap leaf maps (`28_fig8_leaf_corrected.R`) + Sankey panel b into Figure 8 |
 
 ## Data
 | File | Description |
@@ -43,12 +43,12 @@ Characterizes intercellular signaling using PlantCellChat, visualizes expression
 - Ca2+ signaling dominates: strength = 249.5 (4.6× next pathway)
 - GO enrichment: flight-up genes → heat/ER-proteostasis; ground-up → flavonoid metabolism
 - Ca2+ network: 20 nodes, 43 edges, stress-majorization layout
-- Ca2+/K+ crosstalk circuit: CBL9-CIPK23-AKT1 cascade, guard-cell-specific co-expression (CDPK4-ANNAT1 r = 0.56, CIPK23-CaM3 r = 0.46, CBL9-AKT1 r = 0.34)
+- Ca2+/K+ crosstalk circuit: CBL1-CIPK23-AKT1 cascade (27 nodes, 56 edges), guard-cell CIPK23 (0.333) and epidermal AKT1 (0.367), exploratory guard-cell co-expression (CBL1-ANNAT1 r = 0.90, CBL1-CDPK4 r = 0.63, CDPK4-ANNAT1 r = 0.56)
 - Ca2+ 10.2-fold stronger than K+ signaling; guard cells dominant Ca2+ source (outgoing strength 57.1)
-- Figure 8 panel a maps the cascade onto KEGG ath04075 (Plant hormone signal transduction); genes absent from KEGG (CBL9, CBL1, CBL2, CML24, AKT1, KC1, ANNAT1) added as custom expression-colored nodes
+- Figure 8 maps CIPK23 and AKT1 onto leaf cross-sections (panel a) and traces the Ca2+ → CBL1/CBL9/CaM3/CML24 → CIPK23 → AKT1/KC1 cascade (panel b)
 
 ## Input Data (external)
 - PlantCellChat: https://github.com/mrliuw/PlantCellChat
-- ggPlantmap: https://github.com/gojo-jojo/ggPlantmap (Jo & Kajala, J Exp Bot 2024)
-- ggkegg: https://github.com/noriakis/ggkegg (KEGG pathway ath04075)
+- ggPlantmap: https://github.com/leonardojo/ggPlantmap (Jo & Kajala, J Exp Bot 2024)
+- ggpathway: https://github.com/cxli233/ggpathway
 - g:Profiler: https://biit.cs.ut.ee/gprofiler (organism: athaliana)

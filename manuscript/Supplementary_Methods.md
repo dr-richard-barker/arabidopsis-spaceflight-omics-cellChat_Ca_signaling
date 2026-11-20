@@ -10,14 +10,14 @@
 Gene expression data and metadata were retrieved from the NASA Open Science Data Repository (OSDR; https://visualization.osdr.nasa.gov/biodata/api/). Six *Arabidopsis thaliana* spaceflight studies were selected based on the following criteria: (1) whole-genome transcriptomic data (microarray or RNA-seq), (2) flight vs. ground control comparison, (3) vegetative tissue (seedling, leaf, root, or whole plant), and (4) raw or processed expression data available via the OSDR API.
 
 ### S1.2 Studies Included
-| OSDR ID | Mission | Tissue | Platform | Samples |
-|---------|---------|--------|----------|--------|
-| OSD-37 | ISS | Seedling | Microarray | 24 |
-| OSD-678 | ISS | Leaf | RNA-seq | 24 |
-| OSD-38 | ISS | Root | Microarray | 24 |
-| OSD-321 | ISS | Seedling | Microarray | 24 |
-| OSD-120 | Shuttle | Seedling | Microarray | 24 |
-| OSD-624 | ISS | Whole plant | RNA-seq | 36 |
+| OSDR ID | Flight Profile | Tissue | Ecotype(s) | Samples (F / G) |
+|---------|----------------|--------|------------|-----------------|
+| OSD-37 | ISS | Seedling | Ws, Cvi-0, Ler-0, Col-0 | 56 (28 / 28) |
+| OSD-678 | ISS | Seedling | Col-0, Unknown | 24 (12 / 12) |
+| OSD-38 | ISS | Seedling | Col-0 | 6 (3 / 3) |
+| OSD-321 | ISS | Seedling | Col-0 | 10 (5 / 5) |
+| OSD-120 | ISS | Root | Col-0, Unknown | 24 (12 / 12) |
+| OSD-624 | Suborbital | Leaf + root | Unknown | 36 (18 / 18) |
 
 Total: 156 samples (78 flight, 78 ground).
 
@@ -470,28 +470,27 @@ Gene function annotations for the top 4 LASSO biomarker genes were compiled from
 ## S11. Ca2+/K+ Crosstalk Circuit Analysis
 
 ### S11.1 Network Expansion
-The Ca2+ pathway network (S9) was expanded to include six major K+ channels identified from the PlantCellChat K+ pathway database:
+The Ca2+ pathway network (S9) was expanded to include six major K+ channels identified from TAIR and the PlantCellChat K+ pathway database:
 - **AKT1** (AT2G26650) — primary Ca2+-regulated K+ uptake channel
-- **AKT2** (AT5G46240) — phloem K+ channel
-- **GORK** (AT4G18290) — guard cell outward-rectifying K+ channel
-- **KAT1** (AT5G37500) — guard cell inward-rectifying K+ channel
-- **KAT2** (AT4G22200) — K+ channel
-- **KC1** (AT4G30960) — K+ channel subunit, modulates AKT1
+- **AKT2** (AT4G22200) — phloem K+ channel
+- **GORK** (AT5G37500) — guard cell outward-rectifying K+ channel
+- **KAT1** (AT5G46240) — guard cell inward-rectifying K+ channel
+- **KAT2** (AT4G18290) — guard cell / vascular K+ channel
+- **KC1** (AT4G32650) — K+ channel regulatory subunit, modulates AKT1
 
-The CBL9-CIPK23-AKT1 crosstalk edge was added based on literature evidence [12,13,15]. CBL9 (AT5G24270) is present in both the Ca2+ and K+ PlantCellChat pathway databases, serving as the molecular bridge between the two signaling systems. The resulting network contains 27 nodes and 67 edges (28 Ca2+ primary, 12 K+ primary, 14 cascade, 5 branch, 4 K+ channel, 1 crosstalk, 3 LASSO).
+The CBL1-CIPK23-AKT1 crosstalk module was recovered from the PlantCellChat network (CBL1/AT4G17615 → CIPK23/AT1G30270 → AKT1/AT2G26650) and is supported by literature evidence [6–8]. The resulting network contains 27 nodes and 56 edges.
 
 ### S11.2 Co-expression Analysis
 Pearson correlation was computed for all 25 Ca2+/K+ circuit genes across:
 - All cells (global, 41,314 cells)
 - Per cell type (Epidermal, Mesophyll, Stele, Meristematic, Guard)
 
-Key finding: Guard cells (n=89) show the strongest co-expression module:
+Global correlations across all 41,314 cells were weak (|r| < 0.1 for nearly all pairs). Within guard cells (n = 89), an exploratory co-varying module was observed:
+- CBL1 ~ ANNAT1: r = 0.896
+- CBL1 ~ CDPK4: r = 0.629
 - CDPK4 ~ ANNAT1: r = 0.559
-- CIPK23 ~ CaM3: r = 0.460
-- CDPK3 ~ GORK: r = 0.382
-- CBL9 ~ AKT1: r = 0.337
 
-All other cell types show weak correlations (r < 0.1), suggesting the circuit operates primarily in guard cells.
+Because guard cells comprise only 89 cells in the full atlas, these correlations are treated as exploratory rather than primary evidence; the circuit rests primarily on the PlantCellChat communication network and guard-enriched CIPK23 expression (mean 0.333) paired with epidermal-enriched AKT1 expression (mean 0.367).
 
 ### S11.3 Cell-Cell Communication Circuit
 Ca2+ and K+ communication strengths were extracted from PlantCellChat outputs and aggregated into 5×5 source-target matrices. Key findings:
@@ -510,12 +509,12 @@ Marker-based organ inference was attempted using 15 tissue-specific markers:
 
 Result: Marker-based inference was NOT reliable. Photosynthetic markers (RBCS 93-98%, FSD1 72-85%) were ubiquitous across all cell types. Root markers (SCR <3%, PLT1 <11%, WOL <1.2%) were near-absent. Seed markers (LEC2 <0.2%, 2S3 <0.6%) were near-zero (expected for 6-day seedling). Cell-type proxy mapping was used instead.
 
-### S11.5 Figure 8 Construction (KEGG overlay + molecular cascade)
-Figure 8 is a two-panel figure summarizing the CBL9-CIPK23-AKT1 cascade:
-- **Panel A (KEGG pathway overlay)**: The cascade was mapped onto KEGG reference pathway `ath04075` (Plant hormone signal transduction) using the `ggkegg` R package (Sato et al., GitHub: noriakis/ggkegg). The KEGG pathway image was retrieved via `KEGGREST::keggGet('ath04075', 'image')` and rendered as a background raster with `ggplot2::annotation_raster()`. Circuit genes present in KEGG were highlighted on their native nodes: CDPK4 (AT4G09570), CDPK3 (AT4G23650), and CIPK23 (AT4G35310) share one KEGG node (KO:K13412; orange), and CaM3 (AT3G56800) and CaM7 (AT3G43810) share another (KO:K02183; pink). Circuit genes absent from any KEGG Arabidopsis pathway (CBL9, CBL1, CBL2, CML24, AKT1, KC1, ANNAT1) were added as custom nodes colored by guard cell mean expression (white→blue gradient). Cascade arrows trace Ca2+ → CBL9 → CIPK23 → AKT1 → K+ uptake, with guard cell co-expression r values labeled on key edges. Rendered with `ggplot2` at 300 dpi.
-- **Panel B (molecular cascade)**: A Plotly Sankey diagram. Ca2+ → CBL1/CBL9/CaM3/CML24 (sensors) → CIPK23/CDPK4/CDPK3 (kinases) → AKT1/ANNAT1/KC1 (effectors) → K+ uptake. Flow width = guard cell mean expression × 100. Edge labels show guard cell co-expression r values. Static export via kaleido (v0.2.1) at scale=3.
+### S11.5 Figure 8 Construction (Leaf spatial expression + molecular cascade)
+Figure 8 is a two-panel composite summarizing the CBL1–CIPK23–AKT1 cascade:
+- **Panel A (ggPlantmap leaf cross-sections)**: Generated by `track3_ccc_ggplantmap/scripts/28_fig8_leaf_corrected.R` using corrected TAIR AGIs, showing leaf cross-sections of (i) **CIPK23** (`AT1G30270`, guard-cell highest at mean `0.333`) and (ii) **AKT1** (`AT2G26650`, epidermal highest at mean `0.367`).
+- **Panel B (molecular cascade)**: A Plotly Sankey diagram (`22_make_sankey_panel_b.py`). Ca²⁺ → sensors (CBL1, CBL9, CaM3, CML24) → kinases (CIPK23, CDPK4, CDPK3) → effectors (AKT1, ANNAT1, KC1) → K⁺ uptake. Flow width reflects guard-cell mean expression; static export via `kaleido` at `scale=3`.
 
-The two panels were composited side-by-side with panel labels using PIL (Python). Rationale for the KEGG overlay: it places the cascade in the context of the canonical plant hormone signaling map, making explicit which components are curated KEGG entities (CDPK/CIPK kinases, calmodulins) versus circuit-specific genes (CBL sensors, K+ channels) that KEGG does not resolve for Arabidopsis.
+The two panels were composited with `23_composite_figure8_new.py` using PIL (Python).
 
 ### S11.6 ggPlantmap Montage
 Three ggPlantmap composites were generated and combined into a supplementary montage:
@@ -530,25 +529,11 @@ Cell-type expression was mapped to organ regions as proxy:
 
 ### S11.7 Code
 ```r
-# Panel A: ggKEGG cascade overlay on ath04075 (R)
-library(ggkegg); library(KEGGREST); library(ggplot2); library(png)
-
-kegg_img <- keggGet("ath04075", "image")   # 3D raster array [h, w, 4]
-img_w <- ncol(kegg_img); img_h <- nrow(kegg_img)
-
-# Custom nodes for genes not in KEGG, colored by guard cell expression
-p <- ggplot() +
-  annotation_raster(kegg_img, xmin=0, xmax=img_w, ymin=0, ymax=img_h) +
-  # cascade arrows Ca2+ -> CBL9 -> CIPK23 -> AKT1 -> K+ uptake
-  geom_segment(data=cascade, aes(x=x_from, y=y_from, xend=x_to, yend=y_to),
-               arrow=arrow(type="closed")) +
-  # highlight native KEGG nodes (CDPK/CIPK, CaM) + custom overlay nodes
-  geom_point(data=non_kegg, aes(x=plot_x, y=plot_y, fill=guard_expr),
-             shape=21, size=8) +
-  scale_fill_gradient(low="white", high="#0279EE") +
-  coord_cartesian(xlim=c(0,img_w), ylim=c(0,img_h)) + scale_y_reverse() +
-  theme_void()
-ggsave("figure8a_ggkegg.png", p, width=10, height=15, dpi=300)
+# Panel A: Leaf cross-section expression for CIPK23 and AKT1 (track3_ccc_ggplantmap/scripts/28_fig8_leaf_corrected.R)
+library(ggPlantmap); library(ggplot2)
+data("ggPm.At.leaf.crosssection", package = "ggPlantmap")
+# Map corrected cell-type expression (CIPK23 AT1G30270, AKT1 AT2G26650) onto leaf ROIs
+# and render with ggPlantmap.merge() + ggPlantmap.heatmap() at 300 dpi
 ```
 
 ```python

@@ -34,8 +34,14 @@ ccc <- read.csv(paste0(RESULTS, "/tables/ccc_communication_strength.csv"), row.n
 signal_comm <- read.csv(paste0(RESULTS, "/tables/ccc_per_signal_strength.csv"), stringsAsFactors = FALSE)
 avg_expr <- read.csv(paste0(RESULTS, "/tables/lasso_avg_expr_per_celltype.csv"), row.names = 1, check.names = FALSE)
 
-# Top 4 LASSO genes
+# Top 4 LASSO genes and TAIR/manuscript gene names
 top_genes <- c("AT4G10250", "AT3G07365", "AT2G14247", "AT4G01390")
+gene_names <- c(
+  "AT4G10250" = "ATHSP22.0",
+  "AT3G07365" = "NAT",
+  "AT2G14247" = "Chloroplast protein",
+  "AT4G01390" = "TRAF-like"
+)
 
 # Cell type -> ROI mapping
 # Leaf cross-section
@@ -135,10 +141,10 @@ for (gene in top_genes) {
     ct_vals <- setNames(rep(NA, length(colnames(avg_expr))), colnames(avg_expr))
   }
   roi_vals <- build_roi_values(ct_vals, ct_to_roi_leaf)
-  # Get coefficient for title
+  # Get coefficient and gene name for title
   coef <- biomarker$mean_coefficient[biomarker$feature == gene]
   direction <- ifelse(coef > 0, "+", "-")
-  title <- paste0(gene, " (", direction, abs(round(coef, 2)), ")")
+  title <- paste0(gene, " / ", gene_names[[gene]], " (", direction, abs(round(coef, 2)), ")")
   gene_plots_leaf[[gene]] <- make_heatmap(leaf_map, roi_vals, title,
                                            fill_name = "Expr", fill_scale = "gradient")
 }
@@ -178,7 +184,7 @@ for (gene in top_genes) {
   roi_vals <- build_roi_values(ct_vals, ct_to_roi_root)
   coef <- biomarker$mean_coefficient[biomarker$feature == gene]
   direction <- ifelse(coef > 0, "+", "-")
-  title <- paste0(gene, " (", direction, abs(round(coef, 2)), ")")
+  title <- paste0(gene, " / ", gene_names[[gene]], " (", direction, abs(round(coef, 2)), ")")
   gene_plots_root[[gene]] <- make_heatmap(root_map, roi_vals, title,
                                            fill_name = "Expr", fill_scale = "gradient")
 }

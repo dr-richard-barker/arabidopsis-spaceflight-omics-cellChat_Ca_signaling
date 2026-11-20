@@ -16,7 +16,7 @@ abstract: >
   biomarker panel (85 genes, AUC=0.734) reveals stress/ER-proteostasis enrichment
   in flight-upregulated genes and flavonoid metabolism in ground-upregulated genes.
   Ca2+ signaling dominates cell-cell communication (strength=249.5, 10.2x over K+).
-  A CBL9-CIPK23-AKT1 crosstalk circuit connects Ca2+ sensing to K+ uptake, with
+  A CBL1-CIPK23-AKT1 crosstalk circuit connects Ca2+ sensing to K+ uptake, with
   guard cells as the primary signaling hub. Includes Sankey diagram, ggPlantmap
   spatial montage, and full supplementary methods.
 keywords:

@@ -5,7 +5,8 @@
 # so those paths must remain reachable in the built site (do not exclude them).
 title: Arabidopsis Spaceflight Omics
 description: >-
-  LASSO biomarker discovery, scPlantLLM single-cell atlas integration, and
-  Ca2+-dominated cell-cell communication in the Arabidopsis spaceflight response.
+  LASSO biomarker panel and single-cell atlas integration reveal Ca2+-dominated
+  cell-cell communication and a CBL1-CIPK23-AKT1 crosstalk circuit in the
+  Arabidopsis spaceflight response.
 theme: jekyll-theme-cayman
 show_downloads: true
