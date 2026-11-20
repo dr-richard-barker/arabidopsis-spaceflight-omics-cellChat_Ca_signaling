@@ -7,7 +7,7 @@ authors:
     family-names: Barker
     affiliation: "GeneLab Plant Analysis Working Group, NASA Open Science Data Repository"
     orcid: "https://orcid.org/0000-0002-8368-2825"
-repository-code: "https://github.com/dr-richard-barker/arabidopsis-spaceflight-omics"
+repository-code: "https://github.com/dr-richard-barker/arabidopsis-spaceflight-omics-cellChat_Ca_signaling"
 abstract: >
   A multi-track computational pipeline for identifying spaceflight-responsive
   biomarker genes in Arabidopsis thaliana using NASA OSDR transcriptomic data,

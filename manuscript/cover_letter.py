@@ -49,10 +49,10 @@ p = doc.add_paragraph(
     "significant for the npj Microgravity readership:"
 )
 p = doc.add_paragraph(
-    "1. A LASSO biomarker panel (mean AUC = 0.734, 85 genes) that generalizes across ISS "
-    "seedling studies, with GO enrichment revealing a biological split: flight-upregulated "
-    "genes are enriched for stress and ER-proteostasis pathways, whereas ground-upregulated "
-    "genes are enriched for flavonoid metabolism."
+    "1. A regularized LASSO/elastic-net biomarker panel (α = 0.5; mean cross-study AUC = 0.734, "
+    "85 stable genes) that generalizes across ISS seedling studies, with GO enrichment revealing "
+    "a biological split: flight-upregulated genes are enriched for stress and ER-proteostasis "
+    "pathways, whereas ground-upregulated genes are enriched for flavonoid metabolism."
 )
 p = doc.add_paragraph(
     "2. Ca²⁺ is the dominant cell–cell communication pathway (10.2-fold higher than K⁺), "
@@ -67,9 +67,10 @@ p = doc.add_paragraph(
     "stomatal regulation and turgor pressure in closed spacecraft atmospheres."
 )
 p = doc.add_paragraph(
-    "All analysis code, data tables, and figures are available in a companion GitHub "
-    "repository (github.com/dr-richard-barker/arabidopsis-spaceflight-omics) with full "
-    "reproducibility documentation and will be archived on Zenodo with a DOI upon "
+    "All analysis code, data tables, and figures (7 main figures, Table 1, and supplementary "
+    "materials) are openly available in a companion GitHub repository "
+    "(https://github.com/dr-richard-barker/arabidopsis-spaceflight-omics-cellChat_Ca_signaling) "
+    "with full reproducibility documentation and will be archived on Zenodo with a DOI upon "
     "acceptance. The manuscript has not been published elsewhere and is not under "
     "consideration by another journal."
 )
@@ -83,7 +84,8 @@ doc.add_paragraph('')
 doc.add_paragraph('Sincerely,')
 doc.add_paragraph('')
 doc.add_paragraph('Richard Barker')
-doc.add_paragraph('GeneLab Plant Analysis Working Group')
+doc.add_paragraph('GeneLab Plant Analysis Working Group, NASA Open Science Data Repository')
+doc.add_paragraph('ORCID: https://orcid.org/0000-0002-8368-2825')
 doc.add_paragraph('Corresponding author: dr.richard.barker@gmail.com')
 
 out_path = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), 'cover_letter.docx')

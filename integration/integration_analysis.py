@@ -110,7 +110,7 @@ ax_c.set_title('c) Top 4 LASSO biomarker gene functions', fontweight='bold', loc
 fig.suptitle('Integration: LASSO Panel, Ca2+ Signaling, and Gene Functions',
              fontsize=13, fontweight='bold', y=0.98)
 
-fig.savefig(f'{FIGDIR}/Figure6_integration.png', dpi=300, bbox_inches='tight', facecolor='white')
-fig.savefig(f'{FIGDIR}/Figure6_integration.svg', bbox_inches='tight', facecolor='white')
+fig.savefig(f'{FIGDIR}/Figure5_integration.png', dpi=300, bbox_inches='tight', facecolor='white')
+fig.savefig(f'{FIGDIR}/Figure5_integration.svg', bbox_inches='tight', facecolor='white')
 plt.close(fig)
-print(f'Saved: Figure6_integration.png/.svg')
+print(f'Saved: Figure5_integration.png/.svg')

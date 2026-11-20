@@ -6,24 +6,23 @@ LASSO biomarker panel and single-cell atlas integration reveal Ca2+-dominated ce
 ## Contents
 
 ### Main Manuscript
-- `manuscript.docx` — text-only manuscript, figures referenced separately (~5,740 words, includes Table 1)
-- `manuscript.pdf` — PDF of the text-only manuscript (20 pp)
-- `manuscript_with_figures.docx` — same polished text with all 8 figures embedded inline and Table 1 (~5,740 words)
-- `manuscript_with_figures_ACTIVE_DRAFT.docx` — **active working draft** (~5,740 words; identical body text and embedded figures to `manuscript_with_figures.docx`)
-
-> All three Word files share the same polished ~5,740-word text and Table 1; `manuscript.docx`/`.pdf` are the reference submission versions (figures separate), while the `*_with_figures*` docs embed figures inline for review convenience.
+- `manuscript.docx` — text-only submission manuscript, formatted for *npj Microgravity* (Table 1 + Figure Legends + Declarations)
+- `manuscript.pdf` — PDF of the submission manuscript
+- `manuscript_with_figures.docx` — same polished text with all 7 main figures embedded inline and Table 1
+- `manuscript_with_figures.pdf` — PDF of the illustrated manuscript (used in the GitHub Pages integrated PDF reader)
+- `manuscript_with_figures_ACTIVE_DRAFT.docx` — **active working draft** (identical body text and embedded figures to `manuscript_with_figures.docx`)
+- `cover_letter.docx` / `cover_letter.pdf` — editorial cover letter for *npj Microgravity*
 
 ### Main Figures (`figures/`)
-8 main figures in PNG (300 dpi) and SVG (editable vector) formats:
+7 main figures in PNG (300 dpi) and SVG (editable vector, Figures 1–6) formats:
 
-1. **Figure1_LASSO_panel** — LASSO biomarker panel: (a) ROC/AUC per study, (b) feature stability, (c) coefficient forest plot
-2. **Figure2_scPlantLLM_clustering** — UMAP: (a) atlas cell types, (b) Leiden clusters, (c) zero-shot predictions
-3. **Figure3_CCC_communication** — Cell-cell communication (2×2 montage): (a) heatmap, (b) top signaling pathways, (c) top 50 LR pairs (`General [RLK]`, `Ca2+`, and other signaling pathways)
-4. **Figure4_ggPlantmap_LASSO_genes** — Spatial expression of 4 LASSO genes (TAIR IDs + gene names) on (a) leaf and (b) root tip cross-sections
-5. **Figure5_Ca2_pathway** — Ca2+ signaling: (a) data-driven ggpathway network, (b) conceptual schematic
-6. **Figure6_integration** — Integration: (a) LASSO panel score on leaf, (b) Ca2+ signaling on leaf, (c) gene function table
-7. **Figure7_ca2_k_circuit_composite** — Ca2+/K+ crosstalk signaling circuit
-8. **Figure8_sankey_ca2_k_cascade** — CBL1–CIPK23–AKT1 cascade: (a) leaf cross-sections of CIPK23 (guard-highest) and AKT1 (epidermal-highest) expression, (b) molecular-cascade Sankey (guard-cell expression as flow widths)
+1. **Figure1_LASSO_and_scPlantLLM** — Combined 6-panel figure: (a) LOOS-CV AUC per study, (b) top 20 feature stability, (c) top 4 biomarkers forest plot, (d) UMAP atlas cell types, (e) UMAP Leiden clusters, (f) UMAP scPlantLLM zero-shot predictions
+2. **Figure2_CCC_communication** — Cell-cell communication (2×2 montage): (a) heatmap, (b) top 10 signaling pathways, (c) top 50 LR pairs (`General [RLK]`, `Ca2+`, and other signaling pathways)
+3. **Figure3_ggPlantmap_LASSO_genes** — Spatial expression of 4 LASSO/elastic-net genes (TAIR IDs + gene names) on (a) leaf and (b) root tip cross-sections
+4. **Figure4_Ca2_pathway** — Ca2+ signaling: (a) data-driven 20-node ggpathway network, (b) conceptual microgravity schematic
+5. **Figure5_integration** — Integration: (a) LASSO panel score on leaf, (b) Ca2+ signaling on leaf, (c) gene function summary table
+6. **Figure6_ca2_k_circuit_composite** — Ca2+/K+ crosstalk signaling circuit in the Arabidopsis seedling single-cell atlas (a–d)
+7. **Figure7_sankey_ca2_k_cascade** — CBL1–CIPK23–AKT1 cascade: (a) leaf cross-sections of CIPK23 (guard-highest) and AKT1 (epidermal-highest) expression, (b) molecular-cascade Sankey (guard-cell expression)
 
 ### Supplementary Materials (`supplementary/`)
 - **`supplementary_figures/`** — 48 supplementary figure files (PNG + SVG) including:

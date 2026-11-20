@@ -34,8 +34,9 @@ ca2_strength <- ca2_full %>%
   group_by(Interaction_name) %>%
   summarise(total_prob = sum(Prob, na.rm = TRUE)) %>%
   arrange(desc(total_prob))
-ca2_expr <- read.csv(paste0(ATLAS, "/ca2_k_expr_per_celltype.csv"),
-                     stringsAsFactors = FALSE, check.names = FALSE)
+ca2_expr_path <- paste0(ATLAS, "/ca2_k_expr_per_celltype.csv")
+if (!file.exists(ca2_expr_path)) ca2_expr_path <- paste0(RESULTS, "/track3_ccc_ggplantmap/data/ca2_k_expr_per_celltype.csv")
+ca2_expr <- read.csv(ca2_expr_path, stringsAsFactors = FALSE, check.names = FALSE)
 
 cat("Ca2+ LR pairs in DB:", nrow(ca2_lr), "\n")
 cat("Measured Ca2+ interactions:", nrow(ca2_strength), "\n\n")
@@ -287,18 +288,21 @@ p <- ggraph(ca2_network, layout = "manual", x = x, y = y) +
   scale_fill_manual(values = type_colors, name = "Node type",
                     limits = names(type_colors), labels = type_labels) +
   scale_size_continuous(range = c(3, 9), name = "Expression\n(mean)") +
-  annotate(geom = "text", label = "Ca2+ Signaling Pathway (Refined)",
-           x = 0, y = max(node_table$y) + 0.8, size = 5.5, fontface = "bold", family = "sans") +
-  annotate(geom = "text",
-           label = "Dominant CCC pathway (strength = 249.5) | 20 nodes, stress-majorization layout",
-           x = 0, y = max(node_table$y) + 0.3, size = 3, family = "sans", color = "grey30") +
+  labs(
+    title = "Ca2+ Signaling Pathway (20-node network)",
+    subtitle = "Dominant CCC pathway (strength = 249.5) | stress-majorization layout"
+  ) +
+  scale_x_continuous(expand = expansion(mult = 0.12)) +
+  scale_y_continuous(expand = expansion(mult = 0.12)) +
   coord_fixed(clip = "off") +
   theme_void() +
   theme(
+    plot.title = element_text(family = "sans", size = 14, face = "bold", hjust = 0.5, margin = margin(b = 4)),
+    plot.subtitle = element_text(family = "sans", size = 10, color = "grey30", hjust = 0.5, margin = margin(b = 10)),
     legend.position = "right",
     legend.text = element_text(family = "sans", size = 8),
     legend.title = element_text(family = "sans", size = 9, face = "bold"),
-    plot.margin = margin(20, 20, 20, 20)
+    plot.margin = margin(16, 16, 16, 16)
   )
 
 ggsave(paste0(RESULTS, "/figures/ccc_ca2_pathway_ggpathway.png"),

@@ -23,7 +23,10 @@ import numpy as np
 import pandas as pd
 
 # ---- Data ----
-expr = pd.read_csv(ATLAS + '/ca2_k_expr_per_celltype.csv')
+_expr_path = ATLAS + '/ca2_k_expr_per_celltype.csv'
+if not _os.path.exists(_expr_path):
+    _expr_path = RESULTS + '/track3_ccc_ggplantmap/data/ca2_k_expr_per_celltype.csv'
+expr = pd.read_csv(_expr_path)
 coexpr_guard = pd.read_csv(RESULTS + '/tables/ca2_k_coexpression_Guard.csv', index_col=0)
 coexpr_guard.index = [x.replace('_Guard', '') for x in coexpr_guard.index]
 
@@ -202,7 +205,7 @@ ax.legend(handles=legend_items, loc='lower center', ncol=4,
           bbox_to_anchor=(0.5, -0.02))
 
 # ---- Title ----
-ax.set_title('CBL9\u2013CIPK23\u2013AKT1 molecular cascade\n'
+ax.set_title('CBL1\u2013CIPK23\u2013AKT1 molecular cascade\n'
              'Guard cell expression (node height) \u00b7 co-expression r (italic labels)',
              fontsize=13, fontweight='bold', pad=12)
 

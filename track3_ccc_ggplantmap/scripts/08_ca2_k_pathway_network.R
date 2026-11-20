@@ -32,7 +32,9 @@ ca2_strength <- ca2_full %>% filter(Signal == "Ca2+") %>%
   group_by(Interaction_name) %>% summarise(total_prob = sum(Prob, na.rm = TRUE)) %>% arrange(desc(total_prob))
 k_full <- ca2_full %>% filter(Signal == "K+")
 k_strength <- k_full %>% group_by(Interaction_name) %>% summarise(total_prob = sum(Prob, na.rm = TRUE)) %>% arrange(desc(total_prob))
-ca2_expr <- read.csv(paste0(ATLAS, "/ca2_k_expr_per_celltype.csv"), stringsAsFactors = FALSE, check.names = FALSE)
+ca2_expr_path <- paste0(ATLAS, "/ca2_k_expr_per_celltype.csv")
+if (!file.exists(ca2_expr_path)) ca2_expr_path <- paste0(RESULTS, "/track3_ccc_ggplantmap/data/ca2_k_expr_per_celltype.csv")
+ca2_expr <- read.csv(ca2_expr_path, stringsAsFactors = FALSE, check.names = FALSE)
 
 cat("Ca2+ LR pairs:", nrow(ca2_lr), "| K+ LR pairs:", sum(ca2_lr$Signal == "K+"), "\n")
 
@@ -297,14 +299,19 @@ p <- ggraph(ca2_k_network, layout = "manual", x = x, y = y) +
     repel = TRUE, family = "sans", fontface = "bold", bg.colour = "white", bg.r = 0.15, max.overlaps = 30) +
   scale_fill_manual(values = type_colors, name = "Node type", limits = names(type_colors), labels = type_labels) +
   scale_size_continuous(range = c(3, 9), name = "Expression\n(mean)") +
-  annotate(geom = "text", label = "Ca2+/K+ Signaling Network",
-    x = 0, y = max(node_table$y) + 0.8, size = 5.5, fontface = "bold", family = "sans") +
-  annotate(geom = "text",
-    label = "26 nodes | Ca2+ (blue) + K+ (green) + crosstalk (orange) | stress-majorization layout",
-    x = 0, y = max(node_table$y) + 0.3, size = 3, family = "sans", color = "grey30") +
+  labs(
+    title = "Ca2+/K+ Signaling Network",
+    subtitle = paste0(nrow(node_table), " nodes, ", nrow(edge_table), " edges | Ca2+ (blue) + K+ (green) + crosstalk (orange)")
+  ) +
+  scale_x_continuous(expand = expansion(mult = 0.12)) +
+  scale_y_continuous(expand = expansion(mult = 0.12)) +
   coord_fixed(clip = "off") + theme_void() +
-  theme(legend.position = "right", legend.text = element_text(family = "sans", size = 8),
-    legend.title = element_text(family = "sans", size = 9, face = "bold"), plot.margin = margin(20, 20, 20, 20))
+  theme(
+    plot.title = element_text(family = "sans", size = 14, face = "bold", hjust = 0.5, margin = margin(b = 4)),
+    plot.subtitle = element_text(family = "sans", size = 10, color = "grey30", hjust = 0.5, margin = margin(b = 10)),
+    legend.position = "right", legend.text = element_text(family = "sans", size = 8),
+    legend.title = element_text(family = "sans", size = 9, face = "bold"), plot.margin = margin(16, 16, 16, 16)
+  )
 
 ggsave(paste0(RESULTS, "/figures/ccc_ca2_k_pathway_ggpathway.png"), p, height = 10, width = 13, dpi = 300, bg = "white")
 ggsave(paste0(RESULTS, "/figures/ccc_ca2_k_pathway_ggpathway.svg"), p, height = 10, width = 13, bg = "white")

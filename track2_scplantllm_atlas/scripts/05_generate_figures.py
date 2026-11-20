@@ -50,10 +50,10 @@ axes[1].axis('off')
 fig.suptitle('Spatial Expression of LASSO Biomarker Genes on Arabidopsis Anatomy',
              fontsize=13, fontweight='bold', y=0.98)
 fig.tight_layout()
-fig.savefig(f'{FIGDIR}/Figure4_ggPlantmap_LASSO_genes.png', dpi=300, bbox_inches='tight', facecolor='white')
-fig.savefig(f'{FIGDIR}/Figure4_ggPlantmap_LASSO_genes.svg', bbox_inches='tight', facecolor='white')
+fig.savefig(f'{FIGDIR}/Figure3_ggPlantmap_LASSO_genes.png', dpi=300, bbox_inches='tight', facecolor='white')
+fig.savefig(f'{FIGDIR}/Figure3_ggPlantmap_LASSO_genes.svg', bbox_inches='tight', facecolor='white')
 plt.close(fig)
-print('  Saved: Figure4_ggPlantmap_LASSO_genes.png/.svg')
+print('  Saved: Figure3_ggPlantmap_LASSO_genes.png/.svg')
 
 # ============================================================
 # FIGURE 5: Ca2+ pathway (ggpathway + conceptual schematic)

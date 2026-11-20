@@ -16,12 +16,12 @@ Characterizes intercellular signaling using PlantCellChat, visualizes expression
 | `11_ca2_k_ccc_circuit.py` | Ca2+ and K+ cell-to-cell communication circuit |
 | `12_ggplantmap_ca2_k_circuit.R` | ggPlantmap maps (seedling, root tip, leaf) for circuit genes |
 | `13_circuit_summary_table.py` | Ca2+/K+ signaling circuit summary tables |
-| `14_figure7_composite.py` | Figure 7 composite (network, heatmap, spatial map, CCC circuit) |
+| `14_figure7_composite.py` | Figure 6 composite (network, heatmap, spatial map, CCC circuit) |
 | `15_sankey_ca2_k_cascade.py` | Two-panel Sankey (cell-type flow + molecular cascade) |
 | `16_ggplantmap_montage.py` | Supplementary ggPlantmap montage (3-panel stack) |
-| `17_reassemble_figure5.py` | Figure 5 reassembly (refined 20-node network) |
-| `22_make_sankey_panel_b.py` | **Figure 8 panel b**: CBL1-CIPK23-AKT1 molecular cascade Sankey |
-| `23_composite_figure8_new.py` | Combine ggPlantmap leaf maps (`28_fig8_leaf_corrected.R`) + Sankey panel b into Figure 8 |
+| `17_reassemble_figure5.py` | Figure 4 reassembly (refined 20-node network) |
+| `22_make_sankey_panel_b.py` | **Figure 7 panel b**: CBL1-CIPK23-AKT1 molecular cascade Sankey |
+| `23_composite_figure8_new.py` | Combine ggPlantmap leaf maps (`28_fig8_leaf_corrected.R`) + Sankey panel b into Figure 7 |
 
 ## Data
 | File | Description |
@@ -45,7 +45,7 @@ Characterizes intercellular signaling using PlantCellChat, visualizes expression
 - Ca2+ network: 20 nodes, 43 edges, stress-majorization layout
 - Ca2+/K+ crosstalk circuit: CBL1-CIPK23-AKT1 cascade (27 nodes, 56 edges), guard-cell CIPK23 (0.333) and epidermal AKT1 (0.367), exploratory guard-cell co-expression (CBL1-ANNAT1 r = 0.90, CBL1-CDPK4 r = 0.63, CDPK4-ANNAT1 r = 0.56)
 - Ca2+ 10.2-fold stronger than K+ signaling; guard cells dominant Ca2+ source (outgoing strength 57.1)
-- Figure 8 maps CIPK23 and AKT1 onto leaf cross-sections (panel a) and traces the Ca2+ → CBL1/CBL9/CaM3/CML24 → CIPK23 → AKT1/KC1 cascade (panel b)
+- Figure 7 maps CIPK23 and AKT1 onto leaf cross-sections (panel a) and traces the Ca2+ → CBL1/CBL9/CaM3/CML24 → CIPK23 → AKT1/KC1 cascade (panel b)
 
 ## Input Data (external)
 - PlantCellChat: https://github.com/mrliuw/PlantCellChat

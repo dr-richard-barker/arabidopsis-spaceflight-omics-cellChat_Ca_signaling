@@ -44,13 +44,13 @@ Read the complete illustrated manuscript, the text-only submission manuscript (w
       <button type="button" role="tab" id="tab-illustrated" aria-selected="true" tabindex="0"
         data-pdf="manuscript/manuscript_with_figures.pdf"
         data-docx="manuscript/manuscript_with_figures.docx"
-        data-meta="Illustrated manuscript · 8 inline figures + Table 1 · PDF &amp; DOCX">
+        data-meta="Illustrated manuscript · 7 inline figures + Table 1 · PDF &amp; DOCX">
         Illustrated Manuscript
       </button>
       <button type="button" role="tab" id="tab-submission" aria-selected="false" tabindex="-1"
         data-pdf="manuscript/manuscript.pdf"
         data-docx="manuscript/manuscript.docx"
-        data-meta="Submission manuscript · Text + Table 1 + Legends (20 pp) · PDF &amp; DOCX">
+        data-meta="Submission manuscript · npj Microgravity format + Table 1 + Legends · PDF &amp; DOCX">
         Submission Text (npj)
       </button>
       <button type="button" role="tab" id="tab-cover" aria-selected="false" tabindex="-1"
@@ -71,8 +71,8 @@ Read the complete illustrated manuscript, the text-only submission manuscript (w
   <div role="tabpanel" id="panel-illustrated" aria-labelledby="tab-illustrated" tabindex="0">
     <div class="pdf-panel-inner">
       <p class="pdf-meta-line">
-        <span data-doc-meta>Illustrated manuscript · 8 inline figures + Table 1 · PDF &amp; DOCX</span>
-        <span>Also available: <a href="https://github.com/dr-richard-barker/arabidopsis-spaceflight-omics/blob/main/manuscript/Supplementary_Methods.md">Supplementary Methods</a></span>
+        <span data-doc-meta>Illustrated manuscript · 7 inline figures + Table 1 · PDF &amp; DOCX</span>
+        <span>Also available: <a href="https://github.com/dr-richard-barker/arabidopsis-spaceflight-omics-cellChat_Ca_signaling/blob/main/manuscript/Supplementary_Methods.md">Supplementary Methods</a></span>
       </p>
       <iframe class="pdf-frame" title="Illustrated Manuscript PDF Reader" src="manuscript/manuscript_with_figures.pdf#view=FitH" loading="lazy"></iframe>
       <div class="pdfjs-shell" hidden>
@@ -231,70 +231,62 @@ Individual spaceflight plant experiments are small and confounded by tissue, acc
 
 ---
 
-## Main Figures (Figures 1–8) {#figures}
+## Main Figures (Figures 1–7) {#figures}
 
-### Track 1 — LASSO Biomarker Panel
-An elastic-net ($\alpha = 0.5$) model identifies **85 stable biomarker genes** ($\ge 50\%$ selection frequency), with **4 genes selected in 100% of iterations**: `AT4G10250` (*ATHSP22.0*, `+0.723`), `AT3G07365` (natural antisense transcript [*NAT*], `+0.828`), `AT2G14247` (chloroplast protein, `−0.364`), and `AT4G01390` (*TRAF-like*, `−0.819`).
+### Tracks 1 &amp; 2 — LASSO/Elastic-Net Biomarker Panel &amp; scPlantLLM Single-Cell Embeddings
+An elastic-net regularized logistic regression model ($\alpha = 0.5$) identifies **85 stable biomarker genes** ($\ge 50\%$ selection frequency), with **4 genes selected at 100% frequency** (`AT4G10250`/*ATHSP22.0*, `AT3G07365`/*NAT*, `AT2G14247`/chloroplast protein, and `AT4G01390`/*TRAF-like*), paired directly with zero-shot **scPlantLLM** UMAP embeddings of 9,998 seedling atlas cells (28.1% loose accuracy, ARI = 0.033; transparent domain-shift evaluation).
 
 <figure class="fig-card">
-  <img src="manuscript/figures/Figure1_LASSO_panel.png" alt="Figure 1: LASSO biomarker panel for spaceflight prediction" loading="lazy">
-  <figcaption><strong>Figure 1. LASSO biomarker panel for spaceflight prediction.</strong> (a) LOOS-CV AUC per held-out study (mean 0.734). (b) Top 20 most stable features. (c) Coefficient forest plot for the 4 genes at 100% selection frequency. <span class="fig-links"><a href="manuscript/figures/Figure1_LASSO_panel.svg">SVG</a></span></figcaption>
+  <img src="manuscript/figures/Figure1_LASSO_and_scPlantLLM.png" alt="Figure 1: Combined LASSO biomarker panel (a-c) and scPlantLLM single-cell atlas embeddings (d-f)" loading="lazy">
+  <figcaption><strong>Figure 1. LASSO/elastic-net biomarker panel and scPlantLLM single-cell atlas embeddings.</strong> (a) LOOS-CV AUC per held-out study (mean 0.734; upper error bars capped at 1.0). (b) Top 20 most stable features. (c) Coefficient forest plot for the 4 genes at 100% selection frequency. (d–f) UMAP of 9,998 atlas cells colored by (d) atlas cell types, (e) Leiden clusters (resolution 0.5), and (f) scPlantLLM zero-shot predictions. <span class="fig-links"><a href="manuscript/figures/Figure1_LASSO_and_scPlantLLM.svg">SVG</a></span></figcaption>
 </figure>
 
-### Track 2 — scPlantLLM Zero-Shot Single-Cell Embeddings
-Running **scPlantLLM** zero-shot on 9,998 cells of the Lee et al. (2025) seedling atlas yields 28.1% loose accuracy and Leiden ARI = 0.033, transparently documenting root-to-seedling domain shift for plant foundation models.
+### Track 3 — Cell–Cell Communication, Spatial Anatomy &amp; Ca²⁺ Signaling
+PlantCellChat identifies **Ca²⁺ signaling as the dominant pathway** (total strength `249.5`, `4.6×` over BR and `10.2×` over K⁺). In the rearranged **Top 50** ligand–receptor panel (Figure 2c), general RLK pairs occupy ranks 1–21, while **Ca²⁺** pairs emerge at ranks 22 (`AT1G20620_AT5G19450`) and 33 (`AT1G59870_AT3G51920`), followed by **chitin**, **BR**, and **NO₃⁻** interactions.
 
 <figure class="fig-card">
-  <img src="manuscript/figures/Figure2_scPlantLLM_clustering.png" alt="Figure 2: scPlantLLM zero-shot embeddings and clustering" loading="lazy">
-  <figcaption><strong>Figure 2. scPlantLLM zero-shot embeddings and clustering.</strong> UMAP of 9,998 atlas cells colored by (a) atlas cell types, (b) Leiden clusters (resolution 0.5), and (c) zero-shot predictions. <span class="fig-links"><a href="manuscript/figures/Figure2_scPlantLLM_clustering.svg">SVG</a></span></figcaption>
-</figure>
-
-### Track 3 — Cell–Cell Communication & Spatial Anatomy
-PlantCellChat identifies **Ca²⁺ signaling as the dominant pathway** (total strength `249.5`, `4.6×` over BR and `10.2×` over K⁺). In the rearranged **Top 50** ligand–receptor panel (Figure 3c), general RLK pairs occupy ranks 1–21, while **Ca²⁺** pairs emerge at ranks 22 (`AT1G20620_AT5G19450`) and 33 (`AT1G59870_AT3G51920`), followed by **chitin**, **BR**, and **NO₃⁻** interactions.
-
-<figure class="fig-card">
-  <img src="manuscript/figures/Figure3_CCC_communication.png" alt="Figure 3: PlantCellChat cell-cell communication analysis with Top 50 LR pairs" loading="lazy">
-  <figcaption><strong>Figure 3. PlantCellChat cell–cell communication analysis.</strong> (a) Cell-type communication strength heatmap. (b) Top 10 signaling pathways (Ca²⁺ dominant). (c) Rearranged Top 50 ligand–receptor pairs showing general RLK (grey), Ca²⁺ (orange), and other annotated signals (blue). <span class="fig-links"><a href="manuscript/figures/Figure3_CCC_communication.svg">SVG</a></span></figcaption>
+  <img src="manuscript/figures/Figure2_CCC_communication.png" alt="Figure 2: PlantCellChat cell-cell communication analysis with Top 50 LR pairs" loading="lazy">
+  <figcaption><strong>Figure 2. PlantCellChat cell–cell communication analysis.</strong> (a) Cell-type communication strength heatmap. (b) Top 10 signaling pathways (Ca²⁺ dominant). (c) Rearranged Top 50 ligand–receptor pairs showing general RLK (grey), Ca²⁺ (orange), and other annotated signals (blue). <span class="fig-links"><a href="manuscript/figures/Figure2_CCC_communication.svg">SVG</a></span></figcaption>
 </figure>
 
 <figure class="fig-card fig-narrow">
-  <img src="manuscript/figures/Figure4_ggPlantmap_LASSO_genes.png" alt="Figure 4: Spatial expression of top 4 LASSO genes with TAIR IDs and gene names" loading="lazy">
-  <figcaption><strong>Figure 4. Spatial expression of LASSO biomarker genes on Arabidopsis anatomy.</strong> ggPlantmap heatmaps on (a) leaf and (b) root tip cross-sections displaying both TAIR AGI locus IDs and gene names (<em>ATHSP22.0</em>, <em>NAT</em>, <em>Chloroplast protein</em>, and <em>TRAF-like</em>). <span class="fig-links"><a href="manuscript/figures/Figure4_ggPlantmap_LASSO_genes.svg">SVG</a></span></figcaption>
+  <img src="manuscript/figures/Figure3_ggPlantmap_LASSO_genes.png" alt="Figure 3: Spatial expression of top 4 LASSO genes with TAIR IDs and gene names" loading="lazy">
+  <figcaption><strong>Figure 3. Spatial expression of LASSO/elastic-net biomarker genes on <em>Arabidopsis</em> anatomy.</strong> ggPlantmap heatmaps on (a) leaf and (b) root tip cross-sections displaying both TAIR AGI locus IDs and gene names (<em>ATHSP22.0</em>, <em>NAT</em>, <em>Chloroplast protein</em>, and <em>TRAF-like</em>). <span class="fig-links"><a href="manuscript/figures/Figure3_ggPlantmap_LASSO_genes.svg">SVG</a></span></figcaption>
 </figure>
 
 <figure class="fig-card">
-  <img src="manuscript/figures/Figure5_Ca2_pathway.png" alt="Figure 5: Ca2+ signaling pathway network and conceptual schematic" loading="lazy">
-  <figcaption><strong>Figure 5. Ca²⁺ signaling pathway: dominant cell–cell communication axis.</strong> (a) Data-driven 20-node ggpathway network. (b) Conceptual schematic of the Ca²⁺ cascade under microgravity. <span class="fig-links"><a href="manuscript/figures/Figure5_Ca2_pathway.svg">SVG</a></span></figcaption>
+  <img src="manuscript/figures/Figure4_Ca2_pathway.png" alt="Figure 4: Ca2+ signaling pathway network and conceptual schematic" loading="lazy">
+  <figcaption><strong>Figure 4. Ca²⁺ signaling pathway: dominant cell–cell communication axis.</strong> (a) Data-driven 20-node ggpathway network. (b) Conceptual schematic of the Ca²⁺ cascade under microgravity. <span class="fig-links"><a href="manuscript/figures/Figure4_Ca2_pathway.svg">SVG</a></span></figcaption>
 </figure>
 
-### Cross-Track Integration & CBL1–CIPK23–AKT1 Circuit
-Integrating the LASSO panel score with PlantCellChat signaling reveals a negative (ground-like) score across all terrestrial atlas cell types, alongside a **27-node, 56-edge CBL1–CIPK23–AKT1 crosstalk circuit** linking guard-cell `CIPK23` (`0.333`) to epidermal `AKT1` (`0.367`).
+### Cross-Track Integration &amp; CBL1–CIPK23–AKT1 Circuit
+Integrating the biomarker panel score with PlantCellChat signaling reveals a negative (ground-like) score across all terrestrial atlas cell types, alongside a **27-node, 56-edge CBL1–CIPK23–AKT1 crosstalk circuit** linking guard-cell `CIPK23` (`0.333`) to epidermal `AKT1` (`0.367`).
 
 <figure class="fig-card">
-  <img src="manuscript/figures/Figure6_integration.png" alt="Figure 6: Integration of LASSO panel, Ca2+ signaling, and gene functions" loading="lazy">
-  <figcaption><strong>Figure 6. Integration of the LASSO panel, Ca²⁺ signaling, and gene functions.</strong> (a) LASSO weighted score on leaf cross-section. (b) Ca²⁺ signaling strength. (c) Top 4 LASSO biomarker annotations showing Flight (+) and Ground (−) prediction directions. <span class="fig-links"><a href="manuscript/figures/Figure6_integration.svg">SVG</a></span></figcaption>
+  <img src="manuscript/figures/Figure5_integration.png" alt="Figure 5: Integration of LASSO panel, Ca2+ signaling, and gene functions" loading="lazy">
+  <figcaption><strong>Figure 5. Integration of the LASSO/elastic-net panel, Ca²⁺ signaling, and gene functions.</strong> (a) Weighted score on leaf cross-section. (b) Ca²⁺ signaling strength. (c) Top 4 biomarker annotations showing Flight (+) and Ground (−) prediction directions. <span class="fig-links"><a href="manuscript/figures/Figure5_integration.svg">SVG</a></span></figcaption>
 </figure>
 
 <figure class="fig-card fig-narrow">
-  <img src="manuscript/figures/Figure7_ca2_k_circuit_composite.png" alt="Figure 7: Ca2+/K+ crosstalk signaling circuit" loading="lazy">
-  <figcaption><strong>Figure 7. Ca²⁺/K⁺ crosstalk signaling circuit.</strong> (a) 27-node, 56-edge Ca²⁺/K⁺ network. (b) Global 25-gene co-expression matrix. (c) Seedling proxy maps. (d) Cell-to-cell Ca²⁺ vs. K⁺ communication strengths. <span class="fig-links"><a href="manuscript/figures/Figure7_ca2_k_circuit_composite.svg">SVG</a></span></figcaption>
+  <img src="manuscript/figures/Figure6_ca2_k_circuit_composite.png" alt="Figure 6: Ca2+/K+ crosstalk signaling circuit in the Arabidopsis seedling atlas" loading="lazy">
+  <figcaption><strong>Figure 6. Ca²⁺/K⁺ crosstalk signaling circuit in the <em>Arabidopsis</em> seedling single-cell atlas.</strong> (a) 27-node, 56-edge Ca²⁺/K⁺ network. (b) Global 25-gene co-expression matrix (41,314 cells). (c) Seedling proxy maps. (d) Cell-to-cell Ca²⁺ vs. K⁺ communication strengths. <span class="fig-links"><a href="manuscript/figures/Figure6_ca2_k_circuit_composite.svg">SVG</a></span></figcaption>
 </figure>
 
 <figure class="fig-card fig-narrow">
-  <img src="manuscript/figures/Figure8_sankey_ca2_k_cascade.png" alt="Figure 8: CBL1-CIPK23-AKT1 leaf expression and Sankey cascade" loading="lazy">
-  <figcaption><strong>Figure 8. CBL1–CIPK23–AKT1 cascade: spatial expression and molecular cascade.</strong> (a) Leaf cross-sections of <em>CIPK23</em> (guard-highest) and <em>AKT1</em> (epidermal-highest). (b) Molecular-cascade Sankey diagram weighted by guard-cell expression.</figcaption>
+  <img src="manuscript/figures/Figure7_sankey_ca2_k_cascade.png" alt="Figure 7: CBL1-CIPK23-AKT1 leaf expression and Sankey cascade" loading="lazy">
+  <figcaption><strong>Figure 7. CBL1–CIPK23–AKT1 cascade: spatial expression and molecular cascade.</strong> (a) Leaf cross-sections of <em>CIPK23</em> (guard-highest, 0.333) and <em>AKT1</em> (epidermal-highest, 0.367). (b) Molecular-cascade Sankey diagram weighted by guard-cell expression.</figcaption>
 </figure>
 
 ---
 
-## Manuscript Package, Supplementary Files & Data Availability
+## Manuscript Package, Supplementary Files &amp; Data Availability
 
 <ul class="clean">
   <li><strong>Submission Manuscript (separate figures)</strong>: <a href="manuscript/manuscript.pdf">manuscript.pdf</a> · <a href="manuscript/manuscript.docx">manuscript.docx</a></li>
-  <li><strong>Illustrated Manuscript (inline figures)</strong>: <a href="manuscript/manuscript_with_figures.pdf">manuscript_with_figures.pdf</a> · <a href="manuscript/manuscript_with_figures.docx">manuscript_with_figures.docx</a></li>
+  <li><strong>Illustrated Manuscript (7 inline figures)</strong>: <a href="manuscript/manuscript_with_figures.pdf">manuscript_with_figures.pdf</a> · <a href="manuscript/manuscript_with_figures.docx">manuscript_with_figures.docx</a></li>
   <li><strong>Cover Letter</strong>: <a href="manuscript/cover_letter.pdf">cover_letter.pdf</a> · <a href="manuscript/cover_letter.docx">cover_letter.docx</a></li>
-  <li><strong>Supplementary Materials</strong>: <a href="https://github.com/dr-richard-barker/arabidopsis-spaceflight-omics/blob/main/manuscript/Supplementary_Methods.md">Supplementary_Methods.md</a> · <a href="https://github.com/dr-richard-barker/arabidopsis-spaceflight-omics/tree/main/manuscript/supplementary/supplementary_tables">26 Supplementary Tables</a> · <a href="https://github.com/dr-richard-barker/arabidopsis-spaceflight-omics/tree/main/manuscript/supplementary/supplementary_figures">Supplementary Figures</a></li>
-  <li><strong>Analysis Tracks</strong>: <a href="https://github.com/dr-richard-barker/arabidopsis-spaceflight-omics/tree/main/track1_lasso_osdr">track1_lasso_osdr/</a> · <a href="https://github.com/dr-richard-barker/arabidopsis-spaceflight-omics/tree/main/track2_scplantllm_atlas">track2_scplantllm_atlas/</a> · <a href="https://github.com/dr-richard-barker/arabidopsis-spaceflight-omics/tree/main/track3_ccc_ggplantmap">track3_ccc_ggplantmap/</a> · <a href="https://github.com/dr-richard-barker/arabidopsis-spaceflight-omics/tree/main/integration">integration/</a></li>
+  <li><strong>Supplementary Materials</strong>: <a href="https://github.com/dr-richard-barker/arabidopsis-spaceflight-omics-cellChat_Ca_signaling/blob/main/manuscript/Supplementary_Methods.md">Supplementary_Methods.md</a> · <a href="https://github.com/dr-richard-barker/arabidopsis-spaceflight-omics-cellChat_Ca_signaling/tree/main/manuscript/supplementary/supplementary_tables">26 Supplementary Tables</a> · <a href="https://github.com/dr-richard-barker/arabidopsis-spaceflight-omics-cellChat_Ca_signaling/tree/main/manuscript/supplementary/supplementary_figures">Supplementary Figures</a></li>
+  <li><strong>Analysis Tracks</strong>: <a href="https://github.com/dr-richard-barker/arabidopsis-spaceflight-omics-cellChat_Ca_signaling/tree/main/track1_lasso_osdr">track1_lasso_osdr/</a> · <a href="https://github.com/dr-richard-barker/arabidopsis-spaceflight-omics-cellChat_Ca_signaling/tree/main/track2_scplantllm_atlas">track2_scplantllm_atlas/</a> · <a href="https://github.com/dr-richard-barker/arabidopsis-spaceflight-omics-cellChat_Ca_signaling/tree/main/track3_ccc_ggplantmap">track3_ccc_ggplantmap/</a> · <a href="https://github.com/dr-richard-barker/arabidopsis-spaceflight-omics-cellChat_Ca_signaling/tree/main/integration">integration/</a></li>
   <li><strong>External Data &amp; Tools</strong>: <a href="https://visualization.osdr.nasa.gov/biodata/api/">NASA OSDR API</a> (OSD-37, -678, -38, -321, -120, -624) · GEO <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE226097">GSE226097</a> · scPlantLLM · PlantCellChat · ggPlantmap · MIT License (<a href="LICENSE">LICENSE</a>)</li>
 </ul>
 

@@ -26,10 +26,10 @@ matplotlib.rcParams['svg.fonttype'] = 'none'
 fig_dir = RESULTS + '/figures'
 
 panels = {
-    'A': ('ccc_ca2_k_pathway_ggpathway.png', 'Ca2+/K+ pathway network'),
-    'B': ('ca2_k_coexpression_heatmap.png', 'Co-expression by cell type'),
-    'C': ('ggplantmap_ca2_k_circuit_seedling.png', 'Spatial expression (seedling map)'),
-    'D': ('ca2_k_ccc_circuit.png', 'Cell-to-cell CCC circuit'),
+    'a': ('ccc_ca2_k_pathway_ggpathway.png', 'a) Ca2+/K+ pathway network'),
+    'b': ('ca2_k_coexpression_heatmap.png', 'b) Global co-expression (all 41,314 cells)'),
+    'c': ('ggplantmap_ca2_k_circuit_seedling.png', 'c) Spatial expression (seedling map)'),
+    'd': ('ca2_k_ccc_circuit.png', 'd) Cell-to-cell CCC circuit'),
 }
 
 # Layout: 2x2 grid
@@ -37,8 +37,8 @@ fig, axes = plt.subplots(2, 2, figsize=(18, 18))
 fig.patch.set_facecolor('white')
 
 panel_labels = {
-    (0,0): 'A', (0,1): 'B',
-    (1,0): 'C', (1,1): 'D',
+    (0, 0): 'a', (0, 1): 'b',
+    (1, 0): 'c', (1, 1): 'd',
 }
 
 for (r, c), label in panel_labels.items():
@@ -47,17 +47,14 @@ for (r, c), label in panel_labels.items():
     img = mpimg.imread(os.path.join(fig_dir, fname))
     ax.imshow(img)
     ax.set_axis_off()
-    # Panel label
-    ax.text(-0.02, 1.02, label, transform=ax.transAxes,
-            fontsize=20, fontweight='bold', va='bottom', ha='right')
-    ax.set_title(title, fontsize=14, fontweight='bold', pad=10)
+    ax.set_title(title, fontsize=15, fontweight='bold', loc='left', pad=10)
 
-fig.suptitle('Ca2+/K+ signaling circuit in Arabidopsis seedlings under spaceflight',
-             fontsize=16, fontweight='bold', y=0.98)
+fig.suptitle('Ca2+/K+ signaling circuit in the Arabidopsis seedling single-cell atlas',
+             fontsize=17, fontweight='bold', y=0.98)
 
 plt.tight_layout(rect=[0, 0, 1, 0.96])
-out_png = RESULTS + '/figures/Figure7_ca2_k_circuit_composite.png'
-out_svg = RESULTS + '/figures/Figure7_ca2_k_circuit_composite.svg'
+out_png = RESULTS + '/figures/Figure6_ca2_k_circuit_composite.png'
+out_svg = RESULTS + '/figures/Figure6_ca2_k_circuit_composite.svg'
 fig.savefig(out_png, dpi=200, bbox_inches='tight', facecolor='white')
 fig.savefig(out_svg, bbox_inches='tight', facecolor='white')
 plt.close()
@@ -68,4 +65,4 @@ import numpy as np
 img = Image.open(out_png)
 arr = np.array(img)
 nw = (arr < 250).any(axis=2).sum()
-print(f"Figure7: {img.size}, {os.path.getsize(out_png)/1024:.0f} KB, non-white={100*nw/(arr.shape[0]*arr.shape[1]):.1f}%")
+print(f"Figure6: {img.size}, {os.path.getsize(out_png)/1024:.0f} KB, non-white={100*nw/(arr.shape[0]*arr.shape[1]):.1f}%")

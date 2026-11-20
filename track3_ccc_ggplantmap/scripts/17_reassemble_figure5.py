@@ -45,8 +45,8 @@ axes[1].set_title('b) Ca2+ signaling cascade under microgravity (conceptual sche
 
 plt.tight_layout()
 
-out_png = f'{fig_dir}/Figure5_Ca2_pathway.png'
-out_svg = f'{fig_dir}/Figure5_Ca2_pathway.svg'
+out_png = f'{fig_dir}/Figure4_Ca2_pathway.png'
+out_svg = f'{fig_dir}/Figure4_Ca2_pathway.svg'
 fig.savefig(out_png, dpi=300, bbox_inches='tight', facecolor='white')
 fig.savefig(out_svg, bbox_inches='tight', facecolor='white')
 plt.close()
@@ -55,5 +55,5 @@ plt.close()
 img = Image.open(out_png)
 arr = np.array(img)
 nw = (arr < 250).any(axis=2).sum()
-print(f"Figure 5 (reassembled): {img.size}, {os.path.getsize(out_png)/1024:.0f} KB, non-white={100*nw/(arr.shape[0]*arr.shape[1]):.1f}%")
+print(f"Figure 4 (reassembled): {img.size}, {os.path.getsize(out_png)/1024:.0f} KB, non-white={100*nw/(arr.shape[0]*arr.shape[1]):.1f}%")
 print(f"SVG: {os.path.getsize(out_svg)/1024:.0f} KB")
